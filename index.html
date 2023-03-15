@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>mini vue compile</h1>
+    <script type="module">
+        import parse from "./parse.js";
+        const template = `
+<section class="main" v-show="todos.length">
+    <ul class="todo-list">
+    <li v-for="todo in filteredTodos"
+        class="todo"
+        :key="todo.id"
+        :class="{ completed: todo.completed, editing: todo === editedTodo }">
+        <div class="view">
+        <label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+        </div>
+        <input class="edit" type="text"
+                v-model="todo.title"
+                v-todo-focus="todo === editedTodo"
+                @blur="doneEdit(todo)"
+                @keyup.enter="doneEdit(todo)"
+                @keyup.escape="cancelEdit(todo)"
+        >
+    </li>
+    </ul>
+</section>
+`
+parse(template)
+    </script>
+</body>
+</html>
